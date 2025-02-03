@@ -1,1 +1,4 @@
 @import "tailwindcss";
+.dragging {
+  opacity: 0.5;
+}

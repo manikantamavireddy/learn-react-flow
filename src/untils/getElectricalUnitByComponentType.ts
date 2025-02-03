@@ -1,7 +1,7 @@
 import { COMPONENT_TYPE } from "../types";
 
 export const getElectricalUnitByComponentType = (
-  componentType: COMPONENT_TYPE
+  componentType: COMPONENT_TYPE,
 ) => {
   switch (componentType) {
     case "BATTERY":
