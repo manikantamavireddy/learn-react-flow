@@ -1,8 +1,8 @@
-import { BaseEdge, EdgeProps, getSmoothStepPath } from "@xyflow/react";
+import { BaseEdge, EdgeProps, getSmoothStepPath } from '@xyflow/react'
 
 const Wire: React.FC<EdgeProps> = ({ sourceX, sourceY, targetX, targetY }) => {
-  const [d] = getSmoothStepPath({ sourceX, sourceY, targetX, targetY });
-  return <BaseEdge path={d} />;
-};
+  const [d] = getSmoothStepPath({ sourceX, sourceY, targetX, targetY })
+  return <BaseEdge path={d} stroke="black" strokeWidth={1.5} fill="none" />
+}
 
-export default Wire;
+export default Wire

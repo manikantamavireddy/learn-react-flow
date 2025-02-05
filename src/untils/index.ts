@@ -1,1 +1,2 @@
-export * from "./getElectricalUnitByComponentType";
+export * from './getElectricalUnitByComponentType'
+export * from './isConnectionValid'

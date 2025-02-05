@@ -1,4 +1,9 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 .dragging {
   opacity: 0.5;
+}
+
+.node:focus,
+.node:active {
+  border: 1px solid blue;
 }

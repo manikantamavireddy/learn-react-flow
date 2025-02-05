@@ -1,21 +1,22 @@
-import { Handle, NodeProps, Position } from "@xyflow/react";
-import { ElectricalComponentNode } from "./types";
+import { NodeProps, Position } from '@xyflow/react'
+import { ElectricalComponentNode } from './types'
 
-import { getElectricalUnitByComponentType } from "./untils";
-import ElectricalComponentIcon from "./ElectricalComponentIcon";
+import { getElectricalUnitByComponentType } from './untils'
+import ElectricalComponentIcon from './ElectricalComponentIcon'
+import Terminal from './Terminal'
 
-type ElectricalComponentProps = NodeProps<ElectricalComponentNode>;
+type ElectricalComponentProps = NodeProps<ElectricalComponentNode>
 
-const ElectricalComponent: React.FC<ElectricalComponentProps> = (node) => {
-  const unit = getElectricalUnitByComponentType(node.data.type);
+const ElectricalComponent: React.FC<ElectricalComponentProps> = node => {
+  const unit = getElectricalUnitByComponentType(node.data.type)
   return (
-    <div>
+    <div className="node" tabIndex={0}>
       <ElectricalComponentIcon componentType={node.data.type} />
-      <p>{`${node.data.value} ${unit}`}</p>
-      <Handle type="source" position={Position.Right} />
-      <Handle type="target" position={Position.Left} />
+      <p className="text-sm absolute">{`${node.data.value} ${unit}`}</p>
+      <Terminal type="source" position={Position.Right} />
+      <Terminal type="target" position={Position.Left} />
     </div>
-  );
-};
+  )
+}
 
-export default ElectricalComponent;
+export default ElectricalComponent

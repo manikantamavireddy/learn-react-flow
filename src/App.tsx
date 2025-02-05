@@ -8,35 +8,37 @@ import {
   Edge,
   Connection,
   useReactFlow,
-} from "@xyflow/react";
-import ElectricalComponent from "./ElectricalComponent";
-import AddNodeContainer from "./AddNode";
-import Wire from "./Wire";
-import { useCallback } from "react";
-import { COMPONENT_TYPE } from "./types";
-const nodeTypes = { electricalComponent: ElectricalComponent };
-const edgeTypes = { wire: Wire };
+} from '@xyflow/react'
+import ElectricalComponent from './ElectricalComponent'
+import AddNodeContainer from './AddNode'
+import Wire from './Wire'
+import { useCallback } from 'react'
+import { COMPONENT_TYPE } from './types'
+import ConnectionLine from './ConnectionLine'
+import { isValidConnection } from './untils'
+const nodeTypes = { electricalComponent: ElectricalComponent }
+const edgeTypes = { wire: Wire }
 
 function App() {
-  const [nodes, setNodes, onNodesChange] = useNodesState([] as Node[]);
-  const [edges, setEdges, onEdgesChange] = useEdgesState([] as Edge[]);
-  const { screenToFlowPosition } = useReactFlow();
+  const [nodes, setNodes, onNodesChange] = useNodesState([] as Node[])
+  const [edges, setEdges, onEdgesChange] = useEdgesState([] as Edge[])
+  const { screenToFlowPosition } = useReactFlow()
 
   const handleConnect = (connection: Connection) => {
     const edge: Edge = {
       ...connection,
       id: `${Date.now()}`,
-      type: "wire",
-    };
-    setEdges((previousEdges) => previousEdges.concat(edge));
-  };
+      type: 'wire',
+    }
+    setEdges(previousEdges => previousEdges.concat(edge))
+  }
 
   const handleDrop = useCallback(
     (event: React.DragEvent<HTMLDivElement>) => {
-      event.preventDefault();
-      const type = event.dataTransfer.getData("component-type");
+      event.preventDefault()
+      const type = event.dataTransfer.getData('component-type')
       if (type?.length) {
-        setNodes((previousNodes) =>
+        setNodes(previousNodes =>
           previousNodes.concat({
             id: `${Date.now()}`,
             data: { type: type as COMPONENT_TYPE, value: 0 },
@@ -44,19 +46,19 @@ function App() {
               x: event.clientX,
               y: event.clientY,
             }),
-            type: "electricalComponent",
-          }),
-        );
+            type: 'electricalComponent',
+          })
+        )
       }
     },
-    [screenToFlowPosition, setNodes],
-  );
+    [screenToFlowPosition, setNodes]
+  )
 
   return (
     <div
-      style={{ height: "100vh", width: "100%" }}
+      style={{ height: '100vh', width: '100%' }}
       onDrop={handleDrop}
-      onDragOver={(event) => event.preventDefault()}
+      onDragOver={event => event.preventDefault()}
     >
       <ReactFlow
         nodes={nodes}
@@ -66,6 +68,8 @@ function App() {
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
         onConnect={handleConnect}
+        connectionLineComponent={ConnectionLine}
+        isValidConnection={isValidConnection}
       >
         <Background variant={BackgroundVariant.Lines} id="1" />
         <Background
@@ -77,7 +81,7 @@ function App() {
         <AddNodeContainer />
       </ReactFlow>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

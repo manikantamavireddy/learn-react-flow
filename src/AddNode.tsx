@@ -1,27 +1,25 @@
-import React, { useCallback } from "react";
-import { COMPONENT_TYPE } from "./types";
-import ElectricalComponentIcon from "./ElectricalComponentIcon";
+import React, { useCallback } from 'react'
+import { COMPONENT_TYPE } from './types'
+import ElectricalComponentIcon from './ElectricalComponentIcon'
 const AddNodeContainer: React.FC = () => {
   const handleDragstart = useCallback(
     (event: React.DragEvent<HTMLDivElement>) => {
-      event.dataTransfer.setDragImage(event.target as HTMLDivElement, 0, 0);
-      (event.target as HTMLDivElement).classList.add("dragging");
+      event.dataTransfer.setDragImage(event.target as HTMLDivElement, 0, 0)
+      ;(event.target as HTMLDivElement).classList.add('dragging')
       const componentType = (event.target as HTMLDivElement).getAttribute(
-        "data-component-type",
-      );
+        'data-component-type'
+      )
       if (componentType) {
-        event.dataTransfer.setData("component-type", componentType);
+        event.dataTransfer.setData('component-type', componentType)
       }
     },
-    [],
-  );
+    []
+  )
 
   const handleDragEnd: React.DragEventHandler<HTMLDivElement> = useCallback(
-    (event) => {
-      (event.target as HTMLDivElement).classList.remove("dragging");
-    },
-    [],
-  );
+    event => (event.target as HTMLDivElement).classList.remove('dragging'),
+    []
+  )
 
   return (
     <div
@@ -29,13 +27,13 @@ const AddNodeContainer: React.FC = () => {
       onDragStart={handleDragstart}
       onDragEnd={handleDragEnd}
     >
-      {Object.values(COMPONENT_TYPE).map((type) => (
+      {Object.values(COMPONENT_TYPE).map(type => (
         <div key={type} data-component-type={type} draggable>
           <ElectricalComponentIcon componentType={type} />
         </div>
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default AddNodeContainer;
+export default AddNodeContainer
